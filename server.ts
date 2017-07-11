@@ -9,8 +9,6 @@ import { Passport } from "./app/config/Passport";
 import { EnvironmentSchema, EnvironmentStatusSchema, Environment } from "./app/models/Environment";
 import { SolutionSchema, Solution } from "./app/models/Solution";
 import { UserSchema } from "./app/models/User";
-import { JobManager } from "./app/jobs/JobManager";
-import { UpdateStatusJob } from "./app/jobs/UpdateStatusJob";
 
 const app: express.Application = express();
 
@@ -32,9 +30,5 @@ DbConfig({
 });
 Passport(app);
 Router(app);
-
-new JobManager()
-    .addJob(new UpdateStatusJob(10000))
-    .executeAllJobs();
 
 export const Server: express.Application = app;
