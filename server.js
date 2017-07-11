@@ -7,6 +7,8 @@ var compression = require("compression");
 var Routes_1 = require("./app/config/Routes");
 var Database_1 = require("./app/config/Database");
 var Passport_1 = require("./app/config/Passport");
+var JobManager_1 = require("./app/jobs/JobManager");
+var UpdateStatusJob_1 = require("./app/jobs/UpdateStatusJob");
 var app = express();
 app.set('crypt_key', 'fjhshj45rujkf3284ksjsfj23hlsd54');
 app.set('port', process.env.PORT || 8080);
@@ -18,21 +20,13 @@ Database_1.DbConfig({
     type: Database_1.Database.Mongo,
     ip: "127.0.0.1",
     port: "27017",
-    database: "SE"
+    database: "SE",
+    username: null,
+    password: null
 });
 Passport_1.Passport(app);
 Routes_1.Router(app);
-// var solution = new SolutionSchema({name: "CESAR"});
-// let user = new UserSchema({solution: solution, email: "cesar@exemple.com", password: "1234567890n"});
-// user.save();
-// let env1 = new EnvironmentSchema({solution: solution, name: "Labs"});
-// env1.status = new EnvironmentStatusSchema({environment: env1,
-//     status: true,
-//     motion: true,
-//     temperarue: 18,
-//     noisy: 106,
-//     gas: 0});
-// env1.save();
-// solution.environments.push(env1);
-// solution.save();
+new JobManager_1.JobManager()
+    .addJob(new UpdateStatusJob_1.UpdateStatusJob(10000))
+    .executeAllJobs();
 exports.Server = app;

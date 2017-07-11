@@ -9,7 +9,11 @@ var Database = (function () {
 }());
 exports.Database = Database;
 exports.DbConfig = function (config) {
+    var user = config.username
+        && config.password
+        ? config.username + ":" + config.password + "@" : "";
     mongoose.connect(config.type + "://"
+        + user
         + config.ip + ":"
         + config.port + "/"
         + config.database, { useMongoClient: true });

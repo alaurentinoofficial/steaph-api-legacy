@@ -2,6 +2,12 @@
 
 ## Target environemnt
 
+* Start up mongo server
+```
+$ mongod
+```
+
+* Start up Steaph API
 ```
 $ npm install
 $ npm run tsc
@@ -10,13 +16,13 @@ $ npm start
 
 ## Development environment
 
-* On Terminal
+* Requires
 ```
 $ npm install
 $ npm run tscw
 ```
 
-* On an other terminal
+* Start up server
 ```
 $ nodemon
 ```

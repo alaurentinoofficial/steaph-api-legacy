@@ -9,6 +9,8 @@ import { Passport } from "./app/config/Passport";
 import { EnvironmentSchema, EnvironmentStatusSchema, Environment } from "./app/models/Environment";
 import { SolutionSchema, Solution } from "./app/models/Solution";
 import { UserSchema } from "./app/models/User";
+import { JobManager } from "./app/jobs/JobManager";
+import { UpdateStatusJob } from "./app/jobs/UpdateStatusJob";
 
 const app: express.Application = express();
 
@@ -24,26 +26,15 @@ DbConfig({
     type: Database.Mongo,
     ip: "127.0.0.1",
     port: "27017",
-    database: "SE"
+    database: "SE",
+    username: null,
+    password: null
 });
 Passport(app);
 Router(app);
 
-// var solution = new SolutionSchema({name: "CESAR"});
-
-// let user = new UserSchema({solution: solution, email: "cesar@exemple.com", password: "1234567890n"});
-// user.save();
-
-// let env1 = new EnvironmentSchema({solution: solution, name: "Labs"});
-// env1.status = new EnvironmentStatusSchema({environment: env1,
-//     status: true,
-//     motion: true,
-//     temperarue: 18,
-//     noisy: 106,
-//     gas: 0});
-// env1.save();
-
-// solution.environments.push(env1);
-// solution.save();
+new JobManager()
+    .addJob(new UpdateStatusJob(10000))
+    .executeAllJobs();
 
 export const Server: express.Application = app;

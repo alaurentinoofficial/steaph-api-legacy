@@ -5,12 +5,18 @@ export class Database {
     public ip: string;
     public port: string;
     public database: string;
+    public username: string;
+    public password: string;
 
     public static Mongo = "mongodb";
 }
 
 export const DbConfig = (config: Database) => {
+    var user = config.username
+                        && config.password
+                        ? config.username + ":" + config.password + "@" : "";
     mongoose.connect(config.type + "://"
+                    + user
                     + config.ip + ":"
                     + config.port + "/"
                     + config.database, { useMongoClient: true });
