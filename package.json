@@ -1,0 +1,29 @@
+{
+  "name": "steaph-api",
+  "version": "1.0.0",
+  "description": "",
+  "main": "bin/www.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "tsc": "node node_modules/typescript/lib/tsc.js",
+    "tscw": "node node_modules/typescript/lib/tsc.js -w"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "Steaph Copyright",
+  "dependencies": {
+    "bcrypt": "^1.0.2",
+    "body-parser": "^1.17.2",
+    "compression": "^1.6.2",
+    "express": "^4.15.3",
+    "jsonwebtoken": "^7.4.1",
+    "mongoose": "^4.11.1",
+    "mongoose-relationship": "^0.1.5",
+    "passport": "^0.3.2",
+    "passport-jwt": "^2.2.1",
+    "typescript": "^2.4.1"
+  },
+  "devDependencies": {
+    "nodemon": "^1.8.1"
+  }
+}
