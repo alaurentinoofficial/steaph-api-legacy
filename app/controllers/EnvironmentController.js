@@ -1,0 +1,81 @@
+"use strict";
+Object.defineProperty(exports, "__esModule", { value: true });
+var jwt = require("jsonwebtoken");
+var Environment_1 = require("../models/Environment");
+var Solution_1 = require("../models/Solution");
+var server_1 = require("../../server");
+var EnvironmentController = (function () {
+    function EnvironmentController() {
+    }
+    EnvironmentController.Get = function (req, res) {
+        var token = req.headers["authorization"].replace("JWT ", "");
+        var payload = jwt.verify(token ? token : "", server_1.Server.get('crypt_key'))._doc;
+        Solution_1.SolutionSchema.findOne({ user: payload })
+            .then(function (s) {
+            Environment_1.EnvironmentSchema.find({ solution: s })
+                .then(function (env) {
+                res.status(200).json(env);
+            })
+                .catch(function (err) {
+                res.status(500).json([]);
+            });
+        })
+            .catch(function (err) {
+            res.status(500).json([]);
+        });
+    };
+    EnvironmentController.Post = function (req, res) {
+        var token = req.headers['authorization'].replace("JWT ", "");
+        var payload = jwt.verify(token ? token : "", server_1.Server.get('crypt_key'))._doc;
+        Solution_1.SolutionSchema.find({ user: payload }, function (err, solution) {
+            if (!solution || err)
+                return res.json({ status: false, message: "Invalid solution!" });
+            var env = { solution: payload.solution, name: req.body.name };
+            Environment_1.EnvironmentSchema.create(env, function (err, docs) {
+                if (err) {
+                    if (err.code == 11000)
+                        res.json({ status: false, message: "Environment already created!", code: err });
+                    else
+                        res.json({ status: false, message: "Invalid environment!", code: err.code });
+                    return;
+                }
+                res.json({ status: true, message: "Succefuly created environment!" });
+            });
+        });
+    };
+    ;
+    EnvironmentController.PutById = function (req, res) {
+        var env = req.body;
+        if (!req.params.id || !env)
+            return res.json({ status: false, message: "Invalid environment!" });
+        var token = req.headers['authorization'].replace("JWT ", "");
+        var payload = jwt.verify(token ? token : "", server_1.Server.get('crypt_key'))._doc;
+        Solution_1.SolutionSchema.find({ user: payload }, function (err, solution) {
+            if (!solution || err)
+                return res.json({ status: false, message: "Invalid solution!" });
+            Environment_1.EnvironmentSchema.findOneAndUpdate({ _id: req.params.id }, env, { upsert: true }, function (err) {
+                if (err)
+                    return res.json({ status: false, message: "Invalid environment!" });
+                res.json({ status: true, message: "Succefuly updated environment!" });
+            });
+        });
+    };
+    ;
+    EnvironmentController.DeleteById = function (req, res) {
+        if (!req.params.id)
+            return res.json({ status: false, message: "Invalid environment!" });
+        var token = req.headers["authorization"].replace("JWT ", "");
+        var payload = jwt.verify(token ? token : "", server_1.Server.get('crypt_key'))._doc;
+        Solution_1.SolutionSchema.findOne({ user: payload }, function (err, docs) {
+            if (err || !docs)
+                return res.json({ status: false, message: "Invalid token!" });
+            Environment_1.EnvironmentSchema.remove({ solution: docs, _id: req.params.id }, function (err, d) {
+                if (err)
+                    return res.json({ status: false, message: "Invalid environment!" });
+                res.json({ status: true, message: "Environment deleted!" });
+            });
+        });
+    };
+    return EnvironmentController;
+}());
+exports.EnvironmentController = EnvironmentController;
