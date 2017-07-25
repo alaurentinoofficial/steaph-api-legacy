@@ -79,3 +79,70 @@ var EnvironmentController = (function () {
     return EnvironmentController;
 }());
 exports.EnvironmentController = EnvironmentController;
+var EnvironmentScheduleController = (function () {
+    function EnvironmentScheduleController() {
+    }
+    EnvironmentScheduleController.Get = function (req, res) {
+        var token = req.headers["authorization"].replace("JWT ", "");
+        var payload = jwt.verify(token ? token : "", server_1.Server.get('crypt_key'))._doc;
+        var env = req.body;
+        if (!req.params.env || !env)
+            return res.json({ status: false, message: "Invalid environment!" });
+        Solution_1.SolutionSchema.findOne({ user: payload })
+            .then(function (s) {
+            Environment_1.EnvironmentSchema.find({ solution: s, _id: req.params.env })
+                .then(function (env) {
+                Environment_1.EnvironmentScheduleSchema.find({ environment: env }, function (err, schedules) {
+                    if (err)
+                        return res.status(500).json([]);
+                    res.status(200).json(schedules);
+                });
+            })
+                .catch(function (err) {
+                res.status(500).json([]);
+            });
+        })
+            .catch(function (err) {
+            res.status(500).json([]);
+        });
+    };
+    EnvironmentScheduleController.PostById = function (req, res) {
+        var env = req.body;
+        if (!req.params.env || !env)
+            return res.json({ status: false, message: "Invalid environment!" });
+        var token = req.headers['authorization'].replace("JWT ", "");
+        var payload = jwt.verify(token ? token : "", server_1.Server.get('crypt_key'))._doc;
+        Solution_1.SolutionSchema.find({ user: payload }, function (err, solution) {
+            if (!solution || err)
+                return res.json({ status: false, message: "Invalid solution!" });
+            Environment_1.EnvironmentSchema.findOne({ _id: req.params.env }, function (err, e) {
+                if (err || !e)
+                    return res.json({ status: false, message: "Invalid environment!" });
+                var b = { environment: e._id, start: new Date(req.body.start), end: new Date(req.body.end), status: true };
+                Environment_1.EnvironmentScheduleSchema.create(b, function (err, e) {
+                    if (err)
+                        return res.json({ status: false, message: /*"Invalid schedule!*/ new Date() });
+                    return res.json({ status: true, message: "Succefuly to add new schedule!" });
+                });
+            });
+        });
+    };
+    ;
+    EnvironmentScheduleController.DeleteById = function (req, res) {
+        if (!req.params.id || !req.params.env)
+            return res.json({ status: false, message: "Invalid environment schedule!" });
+        var token = req.headers["authorization"].replace("JWT ", "");
+        var payload = jwt.verify(token ? token : "", server_1.Server.get('crypt_key'))._doc;
+        Solution_1.SolutionSchema.findOne({ user: payload }, function (err, docs) {
+            if (err || !docs)
+                return res.json({ status: false, message: "Invalid token!" });
+            Environment_1.EnvironmentScheduleSchema.remove({ _id: req.params.id, environment: req.params.env }, function (err, d) {
+                if (err)
+                    return res.json({ status: false, message: "Invalid schdule!" });
+                res.json({ status: true, message: "Schedule deleted!" });
+            });
+        });
+    };
+    return EnvironmentScheduleController;
+}());
+exports.EnvironmentScheduleController = EnvironmentScheduleController;

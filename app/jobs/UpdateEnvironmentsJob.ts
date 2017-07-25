@@ -27,7 +27,8 @@ export var UpdateEnvironmentsCron = (delay: Number) => {
         if(err || schedules.length == 0)
             return;
 
-        var updates = Array<Status>();
+        var on = [];
+        var off = [];
         var now = new Date();
         let d = new Date(now);
         d.setHours(now.getHours() + 1);
@@ -35,14 +36,25 @@ export var UpdateEnvironmentsCron = (delay: Number) => {
         schedules.forEach(function (s) {
             if(d > _baseDate(new Date(s.start))
             && now <= _baseDate(new Date(s.end))) {
-                updates.push({environment: s.environment, status: true});
+                if(on.indexOf(String(s.environment)) == -1)
+                    on.push(String(s.environment));
             }
             else {
-                updates.push({environment: s.environment, status: false});
+               if(off.indexOf(String(s.environment)) == -1) {
+                    off.push(String(s.environment));
+               }
             }
         });
 
-        UpdateStatus(updates);
+        off.forEach(function(i) {
+            if(on.indexOf(i) > -1)
+                off.splice(off.indexOf(i), 1);
+        });
+        for(var i = 0; i < on.length; i++) on[i] = { environment: on[i], status: true };
+        for(var i = 0; i < off.length; i++) off[i] = { environment: off[i], status: false };
+
+        var buffer = on.concat(off);
+        UpdateStatus(buffer);
     });
 
     setTimeout(function() {UpdateEnvironmentsCron(delay);}, delay);

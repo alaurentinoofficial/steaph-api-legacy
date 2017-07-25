@@ -25,10 +25,12 @@ Database_1.DbConfig({
 });
 Passport_1.Passport(app);
 Routes_1.Router(app);
+// Unit Testing (:D)
+// ==============================
+// Environment Schedule Test
+// ===============================
 //
-// TESTES UNITATRIO (:D)
-//
-// EnvironmentSchema.findOne({name: "Alaurentino"}, (err, env) => {
+// EnvironmentSchema.findOne({name: "Labs"}, (err, env) => {
 //     if(err || env == null) {
 //         return;
 //     }
@@ -40,6 +42,15 @@ Routes_1.Router(app);
 //         console.log("Tempo criado com sucesso");
 //     })
 // });
+// var start = new Date();
+// var end = new Date(start);
+// end.setMinutes(end.getMinutes() + 10)
+// let body = {start: start, end: end};
+// console.log(body);
+// ==============================
+// Solution Relation Test
+// ===============================
+//
 // var body = {name: "CESAR" };
 // SolutionSchema.create(body, (err, s) => {
 //     if(err) 

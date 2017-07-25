@@ -14,6 +14,11 @@ exports.Router = function (app) {
     app.route("/api/environment/:id")
         .put(passport.authenticate('jwt', { sessions: false }), EnvironmentController_1.EnvironmentController.PutById)
         .delete(passport.authenticate('jwt', { sessions: false }), EnvironmentController_1.EnvironmentController.DeleteById);
+    app.route("/api/environment/:env/schedule")
+        .get(passport.authenticate('jwt', { sessions: false }), EnvironmentController_1.EnvironmentScheduleController.Get)
+        .post(passport.authenticate('jwt', { sessions: false }), EnvironmentController_1.EnvironmentScheduleController.PostById);
+    app.route("/api/environment/:env/schedule/:id")
+        .delete(passport.authenticate('jwt', { sessions: false }), EnvironmentController_1.EnvironmentScheduleController.DeleteById);
     app.get('/*', function (req, res) {
         res.status(404);
     });

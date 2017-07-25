@@ -33,11 +33,13 @@ Passport(app);
 Router(app);
 
 
-//
-// TESTES UNITATRIO (:D)
-//
+// Unit Testing (:D)
 
-// EnvironmentSchema.findOne({name: "Alaurentino"}, (err, env) => {
+// ==============================
+// Environment Schedule Test
+// ===============================
+//
+// EnvironmentSchema.findOne({name: "Labs"}, (err, env) => {
 //     if(err || env == null) {
 //         return;
 //     }
@@ -52,6 +54,17 @@ Router(app);
 //     })
 // });
 
+// var start = new Date();
+// var end = new Date(start);
+// end.setMinutes(end.getMinutes() + 10)
+
+// let body = {start: start, end: end};
+// console.log(body);
+
+// ==============================
+// Solution Relation Test
+// ===============================
+//
 // var body = {name: "CESAR" };
 // SolutionSchema.create(body, (err, s) => {
 //     if(err) 
