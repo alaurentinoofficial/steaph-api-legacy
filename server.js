@@ -7,6 +7,7 @@ var compression = require("compression");
 var Routes_1 = require("./app/config/Routes");
 var Database_1 = require("./app/config/Database");
 var Passport_1 = require("./app/config/Passport");
+var UpdateEnvironmentsJob_1 = require("./app/jobs/UpdateEnvironmentsJob");
 var app = express();
 app.set('crypt_key', 'fjhshj45rujkf3284ksjsfj23hlsd54');
 app.set('port', process.env.PORT || 8080);
@@ -24,4 +25,17 @@ Database_1.DbConfig({
 });
 Passport_1.Passport(app);
 Routes_1.Router(app);
+UpdateEnvironmentsJob_1.UpdateEnvironments(30000);
+// EnvironmentSchema.findOne({name: "Alaurentino"}, (err, env) => {
+//     if(err || env == null) {
+//         return;
+//     }
+//     var now = new Date();
+//     let body = {environment: env._id, status: false, start: now, end: now.setMinutes(now.getMinutes() + 2)};
+//     EnvironmentScheduleSchema.create(body, (err) => {
+//         if(err)
+//             return console.log("Erro ao criar");
+//         console.log("Tempo criado com sucesso");
+//     })
+// });
 exports.Server = app;
