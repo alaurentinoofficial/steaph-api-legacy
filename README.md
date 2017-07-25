@@ -1,11 +1,13 @@
 ﻿# Steaph API
 
-## Target environemnt
+## Requirements
 
 * Start up mongo server
 ```
 $ mongod
 ```
+
+## Target environemnt
 
 * Start up Steaph API
 ```
@@ -16,13 +18,15 @@ $ npm start
 
 ## Development environment
 
-* Requires
+* Start up TypeScript Compiler
 ```
 $ npm install
 $ npm run tscw
 ```
 
-* Start up server
+* Start up Seaph API
 ```
 $ nodemon
 ```
+
+Steaph Copyright

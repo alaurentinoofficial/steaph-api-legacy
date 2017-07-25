@@ -7,8 +7,6 @@ var compression = require("compression");
 var Routes_1 = require("./app/config/Routes");
 var Database_1 = require("./app/config/Database");
 var Passport_1 = require("./app/config/Passport");
-var JobManager_1 = require("./app/jobs/JobManager");
-var UpdateStatusJob_1 = require("./app/jobs/UpdateStatusJob");
 var app = express();
 app.set('crypt_key', 'fjhshj45rujkf3284ksjsfj23hlsd54');
 app.set('port', process.env.PORT || 8080);
@@ -26,7 +24,4 @@ Database_1.DbConfig({
 });
 Passport_1.Passport(app);
 Routes_1.Router(app);
-new JobManager_1.JobManager()
-    .addJob(new UpdateStatusJob_1.UpdateStatusJob(10000))
-    .executeAllJobs();
 exports.Server = app;
