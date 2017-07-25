@@ -1,9 +1,7 @@
 import * as mqtt from "mqtt";
 import { EnvironmentScheduleSchema } from "../models/Environment";
 
-var updates = [];
-
-let UpdateStatus = () => {
+let UpdateStatus = (updates: Array<Status>) => {
     var client  = mqtt.connect({
         host: 'm11.cloudmqtt.com',
         port: 14581,
@@ -20,18 +18,16 @@ let UpdateStatus = () => {
             console.log("> Set status " + e.environment + " = " + e.status);
         });
 
-        updates = [];
-
         client.end();
     });
 }
 
-export var UpdateEnvironments = (delay: Number) => {
+export var UpdateEnvironmentsCron = (delay: Number) => {
     EnvironmentScheduleSchema.find({}, (err, schedules) => {
-        if(err || schedules.length == 0){
+        if(err || schedules.length == 0)
             return;
-        }
 
+        var updates = Array<Status>();
         var now = new Date();
         let d = new Date(now);
         d.setHours(now.getHours() + 1);
@@ -46,10 +42,15 @@ export var UpdateEnvironments = (delay: Number) => {
             }
         });
 
-        UpdateStatus();
+        UpdateStatus(updates);
     });
 
-    setTimeout(function() {UpdateEnvironments(delay)}, delay);
+    setTimeout(function() {UpdateEnvironmentsCron(delay);}, delay);
+}
+
+export class Status {
+    environment: string;
+    status: boolean;
 }
 
 let _baseDate = function(date) {

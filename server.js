@@ -25,17 +25,31 @@ Database_1.DbConfig({
 });
 Passport_1.Passport(app);
 Routes_1.Router(app);
-UpdateEnvironmentsJob_1.UpdateEnvironments(30000);
+//
+// TESTES UNITATRIO (:D)
+//
 // EnvironmentSchema.findOne({name: "Alaurentino"}, (err, env) => {
 //     if(err || env == null) {
 //         return;
 //     }
 //     var now = new Date();
-//     let body = {environment: env._id, status: false, start: now, end: now.setMinutes(now.getMinutes() + 2)};
+//     let body = {environment: env._id, status: false, start: now, end: now.setMinutes(now.getMinutes() + 1)};
 //     EnvironmentScheduleSchema.create(body, (err) => {
 //         if(err)
 //             return console.log("Erro ao criar");
 //         console.log("Tempo criado com sucesso");
 //     })
 // });
+// var body = {name: "CESAR" };
+// SolutionSchema.create(body, (err, s) => {
+//     if(err) 
+//         return console.log("deu pau");
+//     var user = {solution: s._id, email: "cesar@exemple.com", password: "1234567890n"};
+//     UserSchema.create(user, (e, u) => {
+//         if(e)
+//             return console.log(e);
+//         console.log("tudo p..., certo!");
+//     })
+// });
+UpdateEnvironmentsJob_1.UpdateEnvironmentsCron(10000);
 exports.Server = app;

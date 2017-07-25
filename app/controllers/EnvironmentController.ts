@@ -29,11 +29,11 @@ export class EnvironmentController {
         let token = req.headers['authorization'].replace("JWT ", "");
         let payload = jwt.verify(token ? token : "", Server.get('crypt_key'))._doc;
 
-        SolutionSchema.find({user: payload}, (err, solution: Solution) => {
+        SolutionSchema.findOne({user: payload}, (err, solution) => {
             if(!solution || err)
                 return res.json({status: false, message: "Invalid solution!"});
 
-            var env = {solution: payload.solution, name: req.body.name}
+            var env = {name: req.body.name, solution: solution._id};
 
             EnvironmentSchema.create(env, (err, docs) => {
                 if(err) {

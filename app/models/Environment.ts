@@ -41,8 +41,8 @@ export class EnvironmentSchedule {
 }
 
 let environmentSchema = new mongoose.Schema({
-    name: {type: String, required: true, index: true},
-    solution: {type: mongoose.Schema.ObjectId, ref:"Solution", childPath:"environments"},
+    name: {type: String, required: true, unique: true},
+    solution: {type: mongoose.Schema.ObjectId, ref:"Solution", childPath:"environment", required: true, unique: false},
     status: [{type: mongoose.Schema.ObjectId, ref:"EnvironmentStatus", required: false}],
     schedule: [{type: mongoose.Schema.ObjectId, ref:"EnvironmentSchdule", required: false}]
 });

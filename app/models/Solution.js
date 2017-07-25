@@ -30,6 +30,6 @@ exports.Solution = Solution;
 var solutionSchema = new mongoose.Schema({
     name: { type: String, required: true, unique: true },
     user: { type: mongoose.Schema.ObjectId, ref: "User", required: false },
-    environments: [{ type: mongoose.Schema.ObjectId, ref: "Environment", required: false }],
+    environment: [{ type: mongoose.Schema.ObjectId, ref: "Environment", required: false }]
 });
 exports.SolutionSchema = mongoose.model('Solution', solutionSchema);

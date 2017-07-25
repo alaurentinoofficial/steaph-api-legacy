@@ -9,9 +9,7 @@ import { Passport } from "./app/config/Passport";
 import { EnvironmentSchema, EnvironmentStatusSchema, Environment, EnvironmentScheduleSchema } from "./app/models/Environment";
 import { SolutionSchema, Solution } from "./app/models/Solution";
 import { UserSchema } from "./app/models/User";
-import { JobManager } from "./app/jobs/JobManager";
-import { UpdateClassJob } from "./app/jobs/UpdateStatusJob";
-import { UpdateEnvironments } from "./app/jobs/UpdateEnvironmentsJob";
+import { UpdateEnvironmentsCron } from "./app/jobs/UpdateEnvironmentsJob";
 
 const app: express.Application = express();
 
@@ -34,7 +32,10 @@ DbConfig({
 Passport(app);
 Router(app);
 
-UpdateEnvironments(30000);
+
+//
+// TESTES UNITATRIO (:D)
+//
 
 // EnvironmentSchema.findOne({name: "Alaurentino"}, (err, env) => {
 //     if(err || env == null) {
@@ -42,7 +43,7 @@ UpdateEnvironments(30000);
 //     }
 
 //     var now = new Date();
-//     let body = {environment: env._id, status: false, start: now, end: now.setMinutes(now.getMinutes() + 2)};
+//     let body = {environment: env._id, status: false, start: now, end: now.setMinutes(now.getMinutes() + 1)};
 //     EnvironmentScheduleSchema.create(body, (err) => {
 //         if(err)
 //             return console.log("Erro ao criar");
@@ -50,5 +51,21 @@ UpdateEnvironments(30000);
 //         console.log("Tempo criado com sucesso");
 //     })
 // });
+
+// var body = {name: "CESAR" };
+// SolutionSchema.create(body, (err, s) => {
+//     if(err) 
+//         return console.log("deu pau");
+    
+//     var user = {solution: s._id, email: "cesar@exemple.com", password: "1234567890n"};
+//     UserSchema.create(user, (e, u) => {
+//         if(e)
+//             return console.log(e);
+        
+//         console.log("tudo p..., certo!");
+//     })
+// });
+
+UpdateEnvironmentsCron(10000);
 
 export const Server: express.Application = app;

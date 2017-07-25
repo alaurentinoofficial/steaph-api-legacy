@@ -27,10 +27,10 @@ var EnvironmentController = (function () {
     EnvironmentController.Post = function (req, res) {
         var token = req.headers['authorization'].replace("JWT ", "");
         var payload = jwt.verify(token ? token : "", server_1.Server.get('crypt_key'))._doc;
-        Solution_1.SolutionSchema.find({ user: payload }, function (err, solution) {
+        Solution_1.SolutionSchema.findOne({ user: payload }, function (err, solution) {
             if (!solution || err)
                 return res.json({ status: false, message: "Invalid solution!" });
-            var env = { solution: payload.solution, name: req.body.name };
+            var env = { name: req.body.name, solution: solution._id };
             Environment_1.EnvironmentSchema.create(env, function (err, docs) {
                 if (err) {
                     if (err.code == 11000)
