@@ -17,8 +17,10 @@ exports.DbConfig = function (config) {
         + config.ip + ":"
         + config.port + "/"
         + config.database, { useMongoClient: true });
+    exports.MongoDB = false;
     mongoose.connection.on('connected', function () {
         console.log('\n> Database connected!\n');
+        exports.MongoDB = true;
     });
     mongoose.connection.on('error', function (err) {
         console.log('\n> Error - Database: ' + err + '\n');

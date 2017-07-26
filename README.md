@@ -6,6 +6,7 @@
 ```
 $ mongod
 ```
+* Node.js v6.5
 
 ## Target environemnt
 
@@ -29,4 +30,5 @@ $ npm run tscw
 $ nodemon
 ```
 
+Developer by Anderson Laurentino
 Steaph Copyright

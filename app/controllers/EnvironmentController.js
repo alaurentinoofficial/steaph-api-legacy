@@ -88,22 +88,18 @@ var EnvironmentScheduleController = (function () {
         var env = req.body;
         if (!req.params.env || !env)
             return res.json({ status: false, message: "Invalid environment!" });
-        Solution_1.SolutionSchema.findOne({ user: payload })
-            .then(function (s) {
-            Environment_1.EnvironmentSchema.find({ solution: s, _id: req.params.env })
-                .then(function (env) {
+        Solution_1.SolutionSchema.findOne({ user: payload }, function (err, s) {
+            if (err || !s)
+                return res.status(500).json([]);
+            Environment_1.EnvironmentSchema.find({ solution: s, _id: req.params.env }, function (e, env) {
+                if (e || !env)
+                    return res.status(500).json([]);
                 Environment_1.EnvironmentScheduleSchema.find({ environment: env }, function (err, schedules) {
                     if (err)
                         return res.status(500).json([]);
                     res.status(200).json(schedules);
                 });
-            })
-                .catch(function (err) {
-                res.status(500).json([]);
             });
-        })
-            .catch(function (err) {
-            res.status(500).json([]);
         });
     };
     EnvironmentScheduleController.PostById = function (req, res) {

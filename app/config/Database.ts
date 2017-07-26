@@ -1,4 +1,5 @@
 import * as mongoose from "mongoose";
+import { Server } from "../../server";
 
 export class Database {
     public type: string;
@@ -20,9 +21,11 @@ export const DbConfig = (config: Database) => {
                     + config.ip + ":"
                     + config.port + "/"
                     + config.database, { useMongoClient: true });
+    MongoDB = false;
 
     mongoose.connection.on('connected', () => {
         console.log('\n> Database connected!\n');
+        MongoDB = true;
     });
 
     mongoose.connection.on('error', (err) => {
@@ -40,3 +43,5 @@ export const DbConfig = (config: Database) => {
         });
     });
 }
+
+export var MongoDB: Boolean;

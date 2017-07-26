@@ -9,7 +9,7 @@ import { Passport } from "./app/config/Passport";
 import { EnvironmentSchema, EnvironmentStatusSchema, Environment, EnvironmentScheduleSchema } from "./app/models/Environment";
 import { SolutionSchema, Solution } from "./app/models/Solution";
 import { UserSchema } from "./app/models/User";
-import { UpdateEnvironmentsCron } from "./app/jobs/UpdateEnvironmentsJob";
+import { UpdateEnvironmentsCron } from "./app/jobs/UpdateEnvironmentsTask";
 
 const app: express.Application = express();
 
@@ -31,54 +31,6 @@ DbConfig({
 });
 Passport(app);
 Router(app);
-
-
-// Unit Testing (:D)
-
-// ==============================
-// Environment Schedule Test
-// ===============================
-//
-// EnvironmentSchema.findOne({name: "Labs"}, (err, env) => {
-//     if(err || env == null) {
-//         return;
-//     }
-
-//     var now = new Date();
-//     let body = {environment: env._id, status: false, start: now, end: now.setMinutes(now.getMinutes() + 1)};
-//     EnvironmentScheduleSchema.create(body, (err) => {
-//         if(err)
-//             return console.log("Erro ao criar");
-        
-//         console.log("Tempo criado com sucesso");
-//     })
-// });
-
-// var start = new Date();
-// var end = new Date(start);
-// end.setMinutes(end.getMinutes() + 10)
-
-// let body = {start: start, end: end};
-// console.log(body);
-
-// ==============================
-// Solution Relation Test
-// ===============================
-//
-// var body = {name: "CESAR" };
-// SolutionSchema.create(body, (err, s) => {
-//     if(err) 
-//         return console.log("deu pau");
-    
-//     var user = {solution: s._id, email: "cesar@exemple.com", password: "1234567890n"};
-//     UserSchema.create(user, (e, u) => {
-//         if(e)
-//             return console.log(e);
-        
-//         console.log("tudo p..., certo!");
-//     })
-// });
-
-UpdateEnvironmentsCron(10000);
+UpdateEnvironmentsCron(5000);
 
 export const Server: express.Application = app;

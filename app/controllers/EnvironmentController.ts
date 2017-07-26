@@ -100,23 +100,21 @@ export class EnvironmentScheduleController {
         if(!req.params.env || !env)
             return res.json({status: false, message: "Invalid environment!"});
 
-        SolutionSchema.findOne({user: payload})
-        .then(s => {
-            EnvironmentSchema.find({solution: s, _id: req.params.env})
-            .then(env => {
+        SolutionSchema.findOne({user: payload}, (err, s) => {
+            if(err || !s)
+                return res.status(500).json([]);
+            
+            EnvironmentSchema.find({solution: s, _id: req.params.env}, (e, env) => {
+                if(e || !env)
+                    return res.status(500).json([]);
+
                 EnvironmentScheduleSchema.find({environment: env}, (err, schedules) => {
                     if(err)
                         return res.status(500).json([]);
                     
                     res.status(200).json(schedules);
                 });
-            })
-            .catch(err => {
-                res.status(500).json([]);
             });
-        })
-        .catch(err => {
-            res.status(500).json([]);
         });
     }
 
