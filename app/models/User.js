@@ -1,5 +1,3 @@
-"use strict";
-Object.defineProperty(exports, "__esModule", { value: true });
 var mongoose = require("mongoose");
 var bcrypt = require("bcrypt");
 var relationship = require("mongoose-relationship");
@@ -7,7 +5,7 @@ var User = (function () {
     function User() {
     }
     return User;
-}());
+})();
 exports.User = User;
 var userSchema = new mongoose.Schema({
     solution: { type: mongoose.Schema.ObjectId, ref: "Solution", childPath: "user" },

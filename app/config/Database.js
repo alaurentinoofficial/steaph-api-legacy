@@ -1,12 +1,10 @@
-"use strict";
-Object.defineProperty(exports, "__esModule", { value: true });
 var mongoose = require("mongoose");
 var Database = (function () {
     function Database() {
     }
     Database.Mongo = "mongodb";
     return Database;
-}());
+})();
 exports.Database = Database;
 exports.DbConfig = function (config) {
     var user = config.username

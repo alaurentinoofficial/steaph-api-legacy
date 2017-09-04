@@ -1,5 +1,3 @@
-"use strict";
-Object.defineProperty(exports, "__esModule", { value: true });
 var passport = require("passport");
 var passport_jwt_1 = require("passport-jwt");
 var User_1 = require("../models/User");

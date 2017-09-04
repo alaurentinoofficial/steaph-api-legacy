@@ -1,5 +1,3 @@
-"use strict";
-Object.defineProperty(exports, "__esModule", { value: true });
 var jwt = require("jsonwebtoken");
 var User_1 = require("../models/User");
 var server_1 = require("../../server");
@@ -19,11 +17,11 @@ var UserController = (function () {
             else {
                 user.comparePassword(req.body.password, function (err, isMatch) {
                     if (isMatch && !err) {
-                        var sName_1;
+                        var sName;
                         Solution_1.SolutionSchema.findOne({ _id: user.solution }, function (err, solution) {
                             if (err || !solution)
                                 return;
-                            sName_1 = solution.name;
+                            sName = solution.name;
                         });
                         var expiresTime = req.body.selected === true ? 160800 : 60000;
                         var token = jwt.sign(user, server_1.Server.get('crypt_key'), { expiresIn: expiresTime });
@@ -55,5 +53,5 @@ var UserController = (function () {
         });
     };
     return UserController;
-}());
+})();
 exports.UserController = UserController;

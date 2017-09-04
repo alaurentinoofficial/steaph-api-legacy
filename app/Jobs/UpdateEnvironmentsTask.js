@@ -1,5 +1,3 @@
-"use strict";
-Object.defineProperty(exports, "__esModule", { value: true });
 var mqtt = require("mqtt");
 var Environment_1 = require("../models/Environment");
 var Database_1 = require("../config/Database");
@@ -59,7 +57,7 @@ var Status = (function () {
     function Status() {
     }
     return Status;
-}());
+})();
 exports.Status = Status;
 var _baseDate = function (date) {
     var now = new Date();

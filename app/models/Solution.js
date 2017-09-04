@@ -1,5 +1,3 @@
-"use strict";
-Object.defineProperty(exports, "__esModule", { value: true });
 var mongoose = require("mongoose");
 var Environment_1 = require("./Environment");
 var User_1 = require("./User");
@@ -25,7 +23,7 @@ var Solution = (function () {
         });
     }
     return Solution;
-}());
+})();
 exports.Solution = Solution;
 var solutionSchema = new mongoose.Schema({
     name: { type: String, required: true, unique: true },

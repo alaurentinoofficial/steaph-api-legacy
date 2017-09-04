@@ -1,5 +1,3 @@
-"use strict";
-Object.defineProperty(exports, "__esModule", { value: true });
 var mongoose = require("mongoose");
 var relationship = require("mongoose-relationship");
 var Environment = (function () {
@@ -19,19 +17,19 @@ var Environment = (function () {
         });
     }
     return Environment;
-}());
+})();
 exports.Environment = Environment;
 var EnvironmentStatus = (function () {
     function EnvironmentStatus() {
     }
     return EnvironmentStatus;
-}());
+})();
 exports.EnvironmentStatus = EnvironmentStatus;
 var EnvironmentSchedule = (function () {
     function EnvironmentSchedule() {
     }
     return EnvironmentSchedule;
-}());
+})();
 exports.EnvironmentSchedule = EnvironmentSchedule;
 var environmentSchema = new mongoose.Schema({
     name: { type: String, required: true, unique: true },
