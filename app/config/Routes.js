@@ -1,3 +1,5 @@
+"use strict";
+Object.defineProperty(exports, "__esModule", { value: true });
 var passport = require("passport");
 var UserController_1 = require("../controllers/UserController");
 var EnvironmentController_1 = require("../controllers/EnvironmentController");

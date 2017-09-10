@@ -1,4 +1,6 @@
-var express = require('express');
+"use strict";
+Object.defineProperty(exports, "__esModule", { value: true });
+var express = require("express");
 var passport = require("passport");
 var bodyParser = require("body-parser");
 var compression = require("compression");

@@ -1,8 +1,10 @@
+"use strict";
+Object.defineProperty(exports, "__esModule", { value: true });
 var jwt = require("jsonwebtoken");
 var Environment_1 = require("../models/Environment");
 var Solution_1 = require("../models/Solution");
 var server_1 = require("../../server");
-var EnvironmentController = (function () {
+var EnvironmentController = /** @class */ (function () {
     function EnvironmentController() {
     }
     EnvironmentController.Get = function (req, res) {
@@ -75,9 +77,9 @@ var EnvironmentController = (function () {
         });
     };
     return EnvironmentController;
-})();
+}());
 exports.EnvironmentController = EnvironmentController;
-var EnvironmentScheduleController = (function () {
+var EnvironmentScheduleController = /** @class */ (function () {
     function EnvironmentScheduleController() {
     }
     EnvironmentScheduleController.Get = function (req, res) {
@@ -138,5 +140,5 @@ var EnvironmentScheduleController = (function () {
         });
     };
     return EnvironmentScheduleController;
-})();
+}());
 exports.EnvironmentScheduleController = EnvironmentScheduleController;

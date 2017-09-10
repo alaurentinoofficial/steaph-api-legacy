@@ -6,9 +6,7 @@ import * as compression from "compression";
 import { Router } from "./app/config/Routes";
 import { DbConfig, Database } from "./app/config/Database";
 import { Passport } from "./app/config/Passport";
-import { EnvironmentSchema, EnvironmentStatusSchema, Environment, EnvironmentScheduleSchema } from "./app/models/Environment";
-import { SolutionSchema, Solution } from "./app/models/Solution";
-import { UserSchema } from "./app/models/User";
+
 import { UpdateEnvironmentsCron } from "./app/Jobs/UpdateEnvironmentsTask";
 
 const app: express.Application = express();

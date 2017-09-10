@@ -25,7 +25,7 @@ export class UserController {
                             sName = solution.name;
                         });
 
-                        var expiresTime = req.body.selected === true ? 160800 : 60000;
+                        var expiresTime = req.body.remember == true ? 160800 : 60000;
 
                         var token = jwt.sign(user, Server.get('crypt_key'), { expiresIn: expiresTime });
                         var json = {solution: user.solution, solutionName: user.fullName, email: user.email, token: 'JWT ' + token};
