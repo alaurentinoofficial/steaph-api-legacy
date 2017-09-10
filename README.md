@@ -2,10 +2,7 @@
 
 ## Requirements
 
-* Start up mongo server
-```
-$ mongod
-```
+* Mongo v2.6.10 in :27017
 * Node.js v6.5
 
 ## Target environemnt

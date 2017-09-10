@@ -1,15 +1,14 @@
 {
   "name": "steaph-api",
-  "version": "1.0.0",
+  "version": "1.1.0",
   "description": "",
   "main": "bin/www.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1",
-    "tsc": "node node_modules/typescript/lib/tsc.js",
-    "tscw": "node node_modules/typescript/lib/tsc.js -w"
+    "tsc": "node ./node_modules/typescript/lib/tsc.js",
+    "tscw": "node ./node_modules/typescript/lib/tsc.js -w"
   },
+  "author": "Anderson Laurentino",
   "keywords": [],
-  "author": "",
   "license": "Steaph Copyright",
   "dependencies": {
     "bcrypt": "^1.0.2",
