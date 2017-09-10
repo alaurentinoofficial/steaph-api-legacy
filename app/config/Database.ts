@@ -36,7 +36,7 @@ export const DbConfig = (config: Database) => {
         console.log('\n> Database disconnected!\n');
     });
 
-    process.on('SIGINT', function() {
+    process.on('SIGINT', () => {
         mongoose.connection.close(() => {
             console.log('\n> Closing application!\n');
             process.exit(0);

@@ -36,9 +36,8 @@ exports.UpdateEnvironmentsCron = function (delay) {
                         on.push(String(s.environment));
                 }
                 else {
-                    if (off.indexOf(String(s.environment)) == -1) {
+                    if (off.indexOf(String(s.environment)) == -1)
                         off.push(String(s.environment));
-                    }
                 }
             });
             off.forEach(function (i) {

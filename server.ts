@@ -7,7 +7,7 @@ import { Router } from "./app/config/Routes";
 import { DbConfig, Database } from "./app/config/Database";
 import { Passport } from "./app/config/Passport";
 
-import { UpdateEnvironmentsCron } from "./app/Jobs/UpdateEnvironmentsTask";
+import { UpdateEnvironmentsCron } from "./app/jobs/UpdateEnvironmentsTask";
 
 const app: express.Application = express();
 

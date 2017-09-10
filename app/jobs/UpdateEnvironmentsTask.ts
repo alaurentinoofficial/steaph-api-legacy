@@ -11,7 +11,7 @@ let UpdateStatus = (updates: Array<Status>) => {
         clientId: 'Steaph-API'
     });
 
-    client.on('connect', function () {
+    client.on('connect', () => {
         updates.forEach(e => {
             client.publish('steaph/environments/' + e.environment + "/status",
             e.status ? "true" : "false", {qos: 1, retain: false});
@@ -35,20 +35,19 @@ export var UpdateEnvironmentsCron = (delay: Number) => {
             let d = new Date(now);
             d.setHours(now.getHours());
 
-            schedules.forEach(function (s) {
+            schedules.forEach((s) => {
                 if(d > _baseDate(new Date(s.start))
                 && now <= _baseDate(new Date(s.end))) {
                     if(on.indexOf(String(s.environment)) == -1)
                         on.push(String(s.environment));
                 }
                 else {
-                if(off.indexOf(String(s.environment)) == -1) {
-                        off.push(String(s.environment));
-                }
+                    if(off.indexOf(String(s.environment)) == -1)
+                            off.push(String(s.environment));
                 }
             });
 
-            off.forEach(function(i) {
+            off.forEach((i) => {
                 if(on.indexOf(i) > -1)
                     off.splice(off.indexOf(i), 1);
             });
@@ -60,7 +59,7 @@ export var UpdateEnvironmentsCron = (delay: Number) => {
         });
     }
 
-    setTimeout(function() {UpdateEnvironmentsCron(delay);}, delay);
+    setTimeout(() => {UpdateEnvironmentsCron(delay);}, delay);
 }
 
 export class Status {

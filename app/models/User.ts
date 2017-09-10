@@ -14,19 +14,18 @@ let userSchema = new mongoose.Schema({
     password: {type: String, required: true}
 });
 
-userSchema.pre('save', function(next) {
+userSchema.pre('save', (next) => {
     let user = this;
 
     if(this.isModified('password') || this.isNew) {
-        bcrypt.genSalt(10, function(err, salt) {
-            if(err) {
+        bcrypt.genSalt(10, (err, salt) => {
+            if(err)
                 return next(err);
-            }
 
-            bcrypt.hash(user.password, salt, function(err, hash) {
-                if(err) {
+            bcrypt.hash(user.password, salt, (err, hash) => {
+                if(err)
                     return next(err);
-                }
+                
                 user.password = hash;
                 next();
             });
@@ -37,11 +36,10 @@ userSchema.pre('save', function(next) {
     }
 });
 
-userSchema.methods.comparePassword = function(pw, cb) {
-    bcrypt.compare(pw, this.password, function(err, isMath) {
-        if(err) {
+userSchema.methods.comparePassword = (pw, cb) => {
+    bcrypt.compare(pw, this.password, (err, isMath) => {
+        if(err)
             return cb(err);
-        }
 
         cb(null, isMath);
     });

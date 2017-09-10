@@ -6,7 +6,7 @@ import { SolutionSchema, Solution } from "../models/Solution";
 
 export class UserController {
     public static Login (req, res) {
-        UserSchema.findOne({email: req.body.email}, function(err, user) {
+        UserSchema.findOne({email: req.body.email}, (err, user) => {
             if(err) {
                 console.log("Error at Login on UserController");
                 res.json({success: false, message: 'Invalid email'});
@@ -16,7 +16,7 @@ export class UserController {
             if(!user)
                 res.json({success: false, message: 'Invalid email'});
             else {
-                user.comparePassword(req.body.password, function(err, isMatch) {
+                user.comparePassword(req.body.password, (err, isMatch) => {
                     if(isMatch && !err)
                     {
                         let sName: string;
@@ -46,7 +46,7 @@ export class UserController {
                 return;
             }
 
-            UserSchema.create(req.body, function(err, docs) {
+            UserSchema.create(req.body, (err, docs) => {
                 if(err) {
                     if(err.code == 11000)
                         res.json({success: false, message: 'That email address already exits!'});

@@ -7,7 +7,7 @@ var compression = require("compression");
 var Routes_1 = require("./app/config/Routes");
 var Database_1 = require("./app/config/Database");
 var Passport_1 = require("./app/config/Passport");
-var UpdateEnvironmentsTask_1 = require("./app/Jobs/UpdateEnvironmentsTask");
+var UpdateEnvironmentsTask_1 = require("./app/jobs/UpdateEnvironmentsTask");
 var app = express();
 app.set('crypt_key', 'fjhshj45rujkf3284ksjsfj23hlsd54');
 app.set('port', process.env.PORT || 8080);
