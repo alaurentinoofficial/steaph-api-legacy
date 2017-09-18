@@ -1,5 +1,4 @@
 "use strict";
-var _this = this;
 Object.defineProperty(exports, "__esModule", { value: true });
 var mongoose = require("mongoose");
 var bcrypt = require("bcrypt");
@@ -16,8 +15,8 @@ var userSchema = new mongoose.Schema({
     password: { type: String, required: true }
 });
 userSchema.pre('save', function (next) {
-    var user = _this;
-    if (_this.isModified('password') || _this.isNew) {
+    var user = this;
+    if (this.isModified('password') || this.isNew) {
         bcrypt.genSalt(10, function (err, salt) {
             if (err)
                 return next(err);
@@ -34,7 +33,7 @@ userSchema.pre('save', function (next) {
     }
 });
 userSchema.methods.comparePassword = function (pw, cb) {
-    bcrypt.compare(pw, _this.password, function (err, isMath) {
+    bcrypt.compare(pw, this.password, function (err, isMath) {
         if (err)
             return cb(err);
         cb(null, isMath);

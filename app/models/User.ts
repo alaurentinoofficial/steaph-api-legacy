@@ -14,7 +14,7 @@ let userSchema = new mongoose.Schema({
     password: {type: String, required: true}
 });
 
-userSchema.pre('save', (next) => {
+userSchema.pre('save', function(next) {
     let user = this;
 
     if(this.isModified('password') || this.isNew) {
@@ -36,7 +36,7 @@ userSchema.pre('save', (next) => {
     }
 });
 
-userSchema.methods.comparePassword = (pw, cb) => {
+userSchema.methods.comparePassword = function(pw, cb) {
     bcrypt.compare(pw, this.password, (err, isMath) => {
         if(err)
             return cb(err);

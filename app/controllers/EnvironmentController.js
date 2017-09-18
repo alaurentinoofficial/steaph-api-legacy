@@ -10,18 +10,14 @@ var EnvironmentController = /** @class */ (function () {
     EnvironmentController.Get = function (req, res) {
         var token = req.headers["authorization"].replace("JWT ", "");
         var payload = jwt.verify(token ? token : "", server_1.Server.get('crypt_key'))._doc;
-        Solution_1.SolutionSchema.findOne({ user: payload })
-            .then(function (s) {
-            Environment_1.EnvironmentSchema.find({ solution: s })
-                .then(function (env) {
-                res.status(200).json(env);
-            })
-                .catch(function (err) {
-                res.status(500).json([]);
+        Solution_1.SolutionSchema.findOne({ user: payload }, function (err, solution) {
+            if (err)
+                return res.status(500).json([]);
+            Environment_1.EnvironmentSchema.find({ solution: solution }, function (err, envs) {
+                if (err)
+                    return res.status(500).json([]);
+                res.status(200).json(envs);
             });
-        })
-            .catch(function (err) {
-            res.status(500).json([]);
         });
     };
     EnvironmentController.Post = function (req, res) {

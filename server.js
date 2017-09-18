@@ -8,9 +8,13 @@ var Routes_1 = require("./app/config/Routes");
 var Database_1 = require("./app/config/Database");
 var Passport_1 = require("./app/config/Passport");
 var UpdateEnvironmentsTask_1 = require("./app/jobs/UpdateEnvironmentsTask");
+var Solution_1 = require("./app/models/Solution");
+var User_1 = require("./app/models/User");
 var app = express();
+var argv = require('minimist')(process.argv.slice(2));
 app.set('crypt_key', 'fjhshj45rujkf3284ksjsfj23hlsd54');
 app.set('port', process.env.PORT || 8080);
+app.set('debug', false);
 app.use(compression());
 app.use(bodyParser.urlencoded({ extended: true }));
 app.use(bodyParser.json());
@@ -26,4 +30,15 @@ Database_1.DbConfig({
 Passport_1.Passport(app);
 Routes_1.Router(app);
 UpdateEnvironmentsTask_1.UpdateEnvironmentsCron(5000);
+if (typeof (argv.c) !== 'undefined') {
+    Solution_1.SolutionSchema.create({ name: "STEAPH" }, function (err, solution) {
+        if (err)
+            return console.log("Solution not created");
+        User_1.UserSchema.create({ solution: solution, email: "alaurentino.br@gmail.com", password: "1234567890n" }, function (err, user) {
+            if (err)
+                return console.log("User not created");
+            console.log("Succefuly");
+        });
+    });
+}
 exports.Server = app;

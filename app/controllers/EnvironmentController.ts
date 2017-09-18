@@ -10,18 +10,16 @@ export class EnvironmentController {
         let token = req.headers["authorization"].replace("JWT ", "");
         let payload = jwt.verify(token ? token : "", Server.get('crypt_key'))._doc;
 
-        SolutionSchema.findOne({user: payload})
-        .then(s => {
-            EnvironmentSchema.find({solution: s})
-            .then(env => {
-                res.status(200).json(env);
-            })
-            .catch(err => {
-                res.status(500).json([]);
+        SolutionSchema.findOne({user: payload}, (err, solution) => {
+            if(err)
+                return res.status(500).json([]);
+            
+            EnvironmentSchema.find({solution: solution}, (err, envs) => {
+                if(err)
+                    return res.status(500).json([]);
+                
+                res.status(200).json(envs);
             });
-        })
-        .catch(err => {
-            res.status(500).json([]);
         });
     }
 

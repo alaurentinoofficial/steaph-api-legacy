@@ -14,6 +14,6 @@ exports.CreateSolution = function (name) {
     Solution_1.SolutionSchema.create({ name: name }, function (err, solu) {
         if (err)
             console.log("\n> Solution not created!");
-        return solu;
+        return solu._id;
     });
 };

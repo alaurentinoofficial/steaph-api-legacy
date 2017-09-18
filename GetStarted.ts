@@ -4,7 +4,7 @@ import { EnvironmentSchema, EnvironmentStatusSchema, Environment, EnvironmentSch
 import { SolutionSchema, Solution } from "./app/models/Solution";
 import { UserSchema } from "./app/models/User";
 
-export var CreateUser = (solution: string, email: string, password: string) => {
+export var CreateUser = (solution, email: string, password: string) => {
     var u = {solution: solution, email: email, password: password};
 
     UserSchema.create(u, (err, user) => {
@@ -15,11 +15,11 @@ export var CreateUser = (solution: string, email: string, password: string) => {
     });
 }
 
-export var CreateSolution = (name: string) => {
+export var CreateSolution = (name: string)  => {
     SolutionSchema.create({name: name}, function(err, solu) {
         if(err)
             console.log("\n> Solution not created!");
 
-        return solu;
+        return solu._id;
     });
 }
